@@ -1,3 +1,4 @@
+import RegisterFormControlled from "./components/RegisterFormControled/RegisterFormControled";
 import RegisterFormUncontrolled from "./components/RegisterFormUncontrolled/RegisterFormUncontrolled";
 
 const App = () => {
@@ -11,7 +12,8 @@ const App = () => {
 
   return (
     <div className="flexCenter formWrapper">
-      <RegisterFormUncontrolled onRegister={handleRegister} />
+      {/* <RegisterFormUncontrolled onRegister={handleRegister} /> */}
+      <RegisterFormControlled onRegister={handleRegister} />
     </div>
   );
 };
