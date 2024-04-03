@@ -1,11 +1,19 @@
-import RegisterForm from './components/Forms/RegisterForm'
+import RegisterFormUncontrolled from "./components/RegisterFormUncontrolled/RegisterFormUncontrolled";
 
 const App = () => {
-	return (
-		<div className='flexCenter formWrapper'>
-			<RegisterForm />
-		</div>
-	)
-}
+  const handleRegister = (data) => {
+    console.log("Fetch register...");
+    setTimeout(() => {
+      console.log(data);
+      console.log("Register is done...");
+    }, 3000);
+  };
 
-export default App
+  return (
+    <div className="flexCenter formWrapper">
+      <RegisterFormUncontrolled onRegister={handleRegister} />
+    </div>
+  );
+};
+
+export default App;
