@@ -1,59 +1,56 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 const Vote = () => {
-  const data = ["apple", "grape", "orange"];
-  const [state, setState] = useState({ apple: 0, grape: 0, orange: 0 });
+	const data = ['macos', 'windows', 'linux']
+	const [state, setState] = useState({ macos: 0, windows: 0, linux: 0 })
 
-  const handleVote = (value) => {
-    console.log(value);
-    // if (value === "apple") {
-    //   setState((prev) => ({ ...prev, apple: prev.apple + 1 }));
-    // }
-    // if (value === "grape") {
-    //   setState((prev) => ({ ...prev, grape: prev.grape + 1 }));
-    // }
-    // if (value === "orange") {
-    //   setState((prev) => ({ ...prev, orange: prev.orange + 1 }));
-    // }
+	const handleVote = value => {
+		// if (value === 'MacOs') {
+		// 	setState(prev => ({ ...prev, macos: prev.macos + 1 }))
+		// }
+		// if (value === 'Windows') {
+		// 	setState(prev => ({ ...prev, windows: prev.windows + 1 }))
+		// }
+		// if (value === 'Linux') {
+		// 	setState(prev => ({ ...prev, linux: prev.linux + 1 }))
+		// }
 
-    //   setState((prev) => ({ ...prev, [value]: prev[value] + 1 }));
+		switch (value) {
+			case 'macos':
+				setState(prev => ({ ...prev, macos: prev.macos + 1 }))
+				break
+			case 'windows':
+				setState(prev => ({ ...prev, windows: prev.windows + 1 }))
+				break
+			case 'linux':
+				setState(prev => ({ ...prev, linux: prev.linux + 1 }))
+				break
+			default:
+				break
+		}
 
-    switch (value) {
-      case "apple":
-        setState((prev) => ({ ...prev, apple: prev.apple + 1 }));
-        break;
-      case "grape":
-        setState((prev) => ({ ...prev, grape: prev.grape + 1 }));
-        break;
-      case "orange":
-        setState((prev) => ({ ...prev, orange: prev.orange + 1 }));
-        break;
-      default:
-        break;
-    }
-  };
+		// setState(prev => ({ ...prev, [value]: prev[value] + 1 }))
+	}
 
-  //also can be use switch
+	const totalVotes = state.linux + state.windows + state.macos
+	return (
+		<div>
+			<div>
+				{data.map(btn => (
+					<button onClick={() => handleVote(btn)} key={btn}>
+						{btn}
+					</button>
+				))}
+			</div>
 
-  const totalVotes = state.apple + state.grape + state.orange;
+			<div>
+				<h2>MacOs: {state.macos}</h2>
+				<h2>Windows: {state.windows}</h2>
+				<h2>Linux: {state.linux}</h2>
+				<h2>Total votes: {totalVotes}</h2>
+			</div>
+		</div>
+	)
+}
 
-  return (
-    <div>
-      <div>
-        {data.map((btn) => (
-          <button onClick={() => handleVote(btn)} key={btn}>
-            {btn}
-          </button>
-        ))}
-      </div>
-      <div>
-        <h2>apple: {state.apple}</h2>
-        <h2>grape: {state.grape}</h2>
-        <h2>orange: {state.orange}</h2>
-        <h2>Total votes: {totalVotes}</h2>
-      </div>
-    </div>
-  );
-};
-
-export default Vote;
+export default Vote

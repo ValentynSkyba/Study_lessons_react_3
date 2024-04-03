@@ -1,94 +1,74 @@
-import { unstable_renderSubtreeIntoContainer } from "react-dom";
-import s from "./Counter.module.css";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
+import s from './Counter.module.css'
 
 export const Counter = () => {
-  // хук
-  const [counter, setCounter] = useState(0);
+	const [counter, setCounter] = useState(0)
+	const [step, setStep] = useState(1)
 
-  // крок
-  const [step, setStep] = useState(1);
-  // console.log('Render');
+	// Виконається лише один раз. Незалежно від оновлень компонента
+	useEffect(() => {
+		console.log('Component was mount')
+	}, [])
 
-  //монтується один раз
-  useEffect(() => {
-    console.log("Mount component");
-  }, []);
+	// Виконається перший раз, а також всі наступні, коли оновиться лічильник (counter)
+	useEffect(() => {
+		if (counter === 0) return
+		console.log('Update counter')
+		if (counter > 5) {
+			alert('Error')
+		}
 
-  //виконається перший раз та наступні рази при зміні лічильника
-  useEffect(() => {
-    if (counter === 0) return;
-    // щоб не виконувалось в перший раз та не відображадось в консолі
-    console.log("update");
-    if (counter > 5) {
-      alert("Error");
-    }
-    if (counter < -5) {
-      setCounter(0);
-    }
-  }, [counter]);
+		if (counter < -5) {
+			setCounter(0)
+		}
+	}, [counter])
 
-  //виконається кожни раз при зміні компоненту
-  useEffect(() => {
-    console.log("Render");
-  });
+	// Виконається перший раз, та всі наступні рази, коли буде змінено крок (step)
+	useEffect(() => {
+		if (step === 1) return
+		console.log('Update step')
+	}, [step])
 
-  //виконається перший раз та наступні рази при зміні короку
-  useEffect(() => {
-    if (step === 1) return;
-    console.log("update step");
-  }, [step]);
+	// Виконаєть кожен раз, коли оновлюється компонент
+	// useEffect(() => {
+	// 	console.log('RENDER')
+	// })
 
-  //виконається перший раз та наступні рази при зміні короку або лічильника
-  useEffect(() => {
-    console.log("зміні короку або лічильника");
-  }, [step, counter]);
+	useEffect(() => {
+		console.log('Було змінено крок або лічильник')
+	}, [counter, step])
 
-  let count = 0;
-  const handleIncrement = () => {
-    // count++;
-    // console.log(`conter is ${count}`);
+	const handleIncrement = () => {
+		setCounter(prev => prev + step)
+	}
 
-    // setCounter(counter + 1);
-    // setCounter(counter + 1);
-    // setCounter(counter + 1);
+	const handleDecrement = () => {
+		setCounter(prev => prev - step)
+	}
 
-    setCounter((prev) => prev + step);
-    // setCounter((prev) => prev + 3);
-    // setCounter((prev) => prev + 1);
-  };
+	const handleReset = () => {
+		setCounter(0)
+		setStep(1)
+	}
 
-  const handleDecrement = () => {
-    //   setCounter(counter - 1);
-    setCounter((prev) => prev - step);
-  };
+	return (
+		<div className={s.flexContainer}>
+			<div className={s.wrapper}>
+				<h1>{counter}</h1>
 
-  const handleReset = () => {
-    setCounter(0);
-    setStep(1);
-  };
-
-  return (
-    <div className={s.flexContainer}>
-      <div className={s.wrapper}>
-        <h1>{counter}</h1>
-        <input value={step} onChange={(e) => setStep(+e.target.value)} />
-        <div className={s.flex}>
-          <button className="btn" onClick={handleDecrement}>
-            minus
-          </button>
-          <button className="btn" onClick={handleReset}>
-            reset
-          </button>
-          {/* <button className="btn" onClick={() => console.log("Hello")}>
-				cool
-			</button> */}
-
-          <button className="btn" onClick={handleIncrement}>
-            plus
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
+				<input value={step} onChange={e => setStep(+e.target.value)} />
+				<div className={s.flex}>
+					<button className='btn' onClick={handleDecrement}>
+						minus
+					</button>
+					<button className='btn' onClick={handleReset}>
+						reset
+					</button>
+					<button className='btn' onClick={handleIncrement}>
+						plus
+					</button>
+				</div>
+			</div>
+		</div>
+	)
+}
