@@ -2,6 +2,7 @@ import { useState } from "react";
 import FormIdLabels from "./components/RegisterFormControled/FormIdLabels";
 import RegisterFormControlled from "./components/RegisterFormControled/RegisterFormControled";
 import RegisterFormUncontrolled from "./components/RegisterFormUncontrolled/RegisterFormUncontrolled";
+import Emploees from "./components/Employees/Emploees";
 
 const App = () => {
   //генератор інпутів для форми
@@ -17,12 +18,13 @@ const App = () => {
 
   return (
     <div className="flexCenter formWrapper">
-      {/* <RegisterFormUncontrolled onRegister={handleRegister} /> */}
+      {/* <RegisterFormUncontrolled onRegister={handleRegister} />
       <button onClick={() => setCountOfInputs((prev) => prev + 1)}>
         {countOfInputs}
-      </button>
-      <RegisterFormControlled onRegister={handleRegister} />
-      <FormIdLabels countOfInputs={countOfInputs} />
+      </button> */}
+      {/* <RegisterFormControlled onRegister={handleRegister} />
+      <FormIdLabels countOfInputs={countOfInputs} /> */}
+      <Emploees />
     </div>
   );
 };
