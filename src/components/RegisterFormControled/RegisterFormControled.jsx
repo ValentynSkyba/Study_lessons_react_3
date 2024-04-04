@@ -9,7 +9,9 @@ const RegisterFormControlled = ({ onRegister }) => {
     email: "",
     password: "",
     country: "Ukraine",
-    age: "0",
+    age: 0,
+    gender: "male",
+    accept: false,
   });
 
   const handleSubmit = (e) => {
@@ -33,6 +35,14 @@ const RegisterFormControlled = ({ onRegister }) => {
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
+
+    //обробних для чекбоксу
+    if (name === "accept") {
+      return setFormState((prev) => ({ ...prev, accept: !prev.accept }));
+
+      //універсальний обробник для всіх чекбоксів
+      //return setFormState((prev) => ({ ...prev, [name]: !prev.[name] }));
+    }
     setFormState((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -95,6 +105,38 @@ const RegisterFormControlled = ({ onRegister }) => {
             onChange={handleChangeInput}
             name="age"
           />
+        </label>
+
+        <div>
+          <label>
+            <input
+              onChange={handleChangeInput}
+              checked={formState.gender === "male"}
+              type="radio"
+              value="male"
+              name="gender"
+            />
+            Male
+          </label>
+          <labek>
+            <input
+              onChange={handleChangeInput}
+              checked={formState.gender === "female"}
+              type="radio"
+              value="female"
+              name="gender"
+            />
+            Female
+          </labek>
+        </div>
+        <label>
+          <input
+            checked={formState.rules}
+            type="checkbox"
+            className="input"
+            name="accept"
+          />
+          Accept rules
         </label>
 
         <button className="btn border">Register</button>
