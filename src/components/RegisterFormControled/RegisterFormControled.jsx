@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 
 const RegisterFormControlled = ({ onRegister }) => {
+  const userNameId = useId();
+
   //для кожного поля форми
   // const [username, setUsername] = useState("");
   // для бездіч полів, універсальний обробник
@@ -49,9 +51,10 @@ const RegisterFormControlled = ({ onRegister }) => {
   return (
     <div>
       <form onSubmit={handleSubmit} className="form">
-        <label className="label">
+        <label htmlFor={userNameId} className="label">
           Username
           <input
+            id={userNameId}
             value={formState.username}
             onChange={handleChangeInput}
             //для кожного поля форми
